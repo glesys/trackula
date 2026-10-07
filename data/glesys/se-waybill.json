@@ -1,0 +1,31 @@
+{
+  "name": "Swedish waybill",
+  "courier_code": ["dhl-freight-se", "dsv-road"],
+  "tracking_numbers": [
+    {
+      "id": "se_waybill",
+      "name": "Swedish waybill (10)",
+      "description": "Swedish road-freight waybill number: nine digits and a modulus 10:2 (Luhn) check digit. DHL Freight Sweden and DSV Road issue identical numbers, and DSV reuses series after 18 months.",
+      "regex": "(?<SerialNumber>[0-9]{9})(?<CheckDigit>[0-9])",
+      "validation": {
+        "checksum": {
+          "name": "luhn"
+        }
+      },
+      "tracking_url": null,
+      "test_numbers": {
+        "valid": [
+          "9500486734",
+          "950 048 673 4",
+          "1806203236",
+          "1806290829",
+          "1806273700"
+        ],
+        "invalid": [
+          "9500486735",
+          "1806203237"
+        ]
+      }
+    }
+  ]
+}

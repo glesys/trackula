@@ -1,0 +1,17 @@
+php-version = "8.3"
+
+[source]
+paths = ["src", "tests", "bin"]
+includes = ["vendor"]
+
+[formatter]
+preset = "laravel"
+
+[linter]
+integrations = ["pest"]
+
+[linter.rules]
+# Value objects take one constructor parameter per field (Rule has eleven).
+excessive-parameter-list = { constructor-threshold = 11 }
+# The class-level default (15) flags Rule, RuleMatcher and RuleRepository at about 20.
+cyclomatic-complexity = { threshold = 22 }

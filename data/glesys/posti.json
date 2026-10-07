@@ -1,0 +1,24 @@
+{
+  "name": "Posti",
+  "courier_code": "posti",
+  "tracking_numbers": [
+    {
+      "id": "posti_jjfi",
+      "name": "Posti JJFI",
+      "description": "JJFI, a six-digit customer number and eleven digits. Whether the last digit is a check digit is unconfirmed, so only the format is matched.",
+      "regex": "JJFI(?<CustomerNumber>[0-9]{6})(?<SerialNumber>[0-9]{11})",
+      "tracking_url": null,
+      "test_numbers": {
+        "valid": [
+          "JJFI60000099099003809",
+          "JJFI64574900000202361",
+          "JJFI64574900000137203"
+        ],
+        "invalid": [
+          "JJFI6457490000020236",
+          "JJSE64574900000202361"
+        ]
+      }
+    }
+  ]
+}

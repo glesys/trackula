@@ -1,0 +1,82 @@
+{
+    "carriers": {
+        "postnord": {
+            "name": "PostNord",
+            "region": "nordic",
+            "tracking_url": "https://tracking.postnord.com/se/?id=%s"
+        },
+        "bring": {
+            "name": "Bring",
+            "region": "nordic",
+            "tracking_url": "https://tracking.bring.com/tracking/%s",
+            "gs1_prefixes": ["7043810"]
+        },
+        "dhl-freight-se": {
+            "name": "DHL Freight Sweden",
+            "region": "nordic",
+            "tracking_url": "https://www.dhl.com/se-sv/home/tracking/tracking-freight.html?submit=1&tracking-id=%s"
+        },
+        "dsv-road": {
+            "name": "DSV Road (ex DB Schenker)",
+            "region": "nordic",
+            "tracking_url": "https://www.dsv.com/mydsv/tracking-public/?refNumber=%s&language_region=sv-SE"
+        },
+        "posti": {
+            "name": "Posti",
+            "region": "nordic",
+            "tracking_url": "https://www.posti.fi/en/tracking#/shipment/%s"
+        },
+        "gls": {
+            "name": "GLS",
+            "region": "european",
+            "tracking_url": "https://gls-group.eu/track/%s"
+        },
+        "dpd": {
+            "name": "DPD",
+            "region": "european",
+            "tracking_url": "https://www.dpdgroup.com/nl/mydpd/my-parcels/track?lang=en&parcelNumber=%s"
+        },
+        "dhl-express": {
+            "name": "DHL Express",
+            "region": "european",
+            "tracking_url": "https://www.dhl.com/en/express/tracking.html?brand=DHL&AWB=%s"
+        },
+        "dhl-ecommerce": {
+            "name": "DHL eCommerce",
+            "region": "international",
+            "tracking_url": "https://www.dhl.com/en/express/tracking.html?brand=DHL&AWB=%s"
+        },
+        "ups": {
+            "name": "UPS",
+            "region": "international",
+            "tracking_url": "https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=%s"
+        },
+        "fedex": {
+            "name": "FedEx",
+            "region": "international",
+            "tracking_url": "https://www.fedex.com/apps/fedextrack/?tracknumbers=%s"
+        },
+        "usps": {
+            "name": "USPS",
+            "region": "international",
+            "tracking_url": "https://tools.usps.com/go/TrackConfirmAction?tLabels=%s"
+        }
+    },
+    "upstream": {
+        "dhl/dhl_express": "dhl-express",
+        "dhl/dhl_express_piece_id": "dhl-express",
+        "dhl/dhl_ecommerce": "dhl-ecommerce",
+        "dhl/dhl_ecommerce_14": "dhl-ecommerce",
+        "dpd/*": "dpd",
+        "ups/*": "ups",
+        "fedex/*": "fedex",
+        "usps/*": "usps"
+    },
+    "s10_countries": {
+        "SE": "postnord",
+        "DK": "postnord",
+        "NO": "bring",
+        "FI": "posti"
+    },
+    "disabled": {}
+}

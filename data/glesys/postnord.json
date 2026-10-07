@@ -1,0 +1,32 @@
+{
+  "name": "PostNord",
+  "courier_code": "postnord",
+  "tracking_numbers": [
+    {
+      "id": "postnord_numeric_se",
+      "name": "PostNord numeric (13)",
+      "description": "Posten's standard numeric item and shipment ID, still issued by PostNord Sweden: ten digits, a check digit and SE. The check digit is the S10 mod 11 with the weights extended to ten digits.",
+      "regex": "(?<SerialNumber>[0-9]{10})(?<CheckDigit>[0-9])(?<CountryCode>SE)",
+      "validation": {
+        "checksum": {
+          "name": "s10",
+          "weightings": [9, 7, 8, 6, 4, 2, 3, 5, 9, 7],
+          "modulo": 11
+        }
+      },
+      "tracking_url": null,
+      "test_numbers": {
+        "valid": [
+          "84971563697SE",
+          "77021886884SE",
+          "7702 188 688 4 SE",
+          "96932007555SE"
+        ],
+        "invalid": [
+          "96932007556SE",
+          "84971563697DK"
+        ]
+      }
+    }
+  ]
+}

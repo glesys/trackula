@@ -1,0 +1,59 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Replaces data/upstream/ with a release of jkeen/tracking_number_data.
+ *
+ *     bin/update-upstream-data v2.1.0
+ *
+ * Commit the result as its own change and run the tests: every upstream
+ * test number becomes a test case, so a breaking data change fails there.
+ */
+
+$tag = $argv[1] ?? null;
+
+if ($tag === null || preg_match('/^v\d+\.\d+\.\d+$/', $tag) !== 1) {
+    fwrite(STDERR, "Usage: bin/update-upstream-data <tag>, for example v2.0.0\n");
+    exit(1);
+}
+
+$target = dirname(__DIR__).'/data/upstream';
+$work = sys_get_temp_dir().'/trackula-upstream-'.bin2hex(random_bytes(4));
+mkdir($work);
+
+$context = stream_context_create(['http' => ['header' => "User-Agent: glesys-trackula\r\n"]]);
+
+$ref = json_decode(
+    file_get_contents("https://api.github.com/repos/jkeen/tracking_number_data/commits/{$tag}", context: $context)
+        ?: throw new RuntimeException("Unknown tag {$tag}."),
+    true,
+    flags: JSON_THROW_ON_ERROR,
+);
+
+$zip = "{$work}/data.zip";
+file_put_contents($zip, file_get_contents("https://github.com/jkeen/tracking_number_data/archive/refs/tags/{$tag}.zip", context: $context));
+
+$archive = new ZipArchive();
+
+if ($archive->open($zip) !== true) {
+    throw new RuntimeException("Cannot open the {$tag} archive.");
+}
+
+$archive->extractTo($work);
+$archive->close();
+
+$source = glob("{$work}/tracking_number_data-*")[0] ?? throw new RuntimeException('Unexpected archive layout.');
+
+array_map(unlink(...), glob("{$target}/couriers/*.json") ?: []);
+@mkdir("{$target}/couriers", recursive: true);
+
+foreach (glob("{$source}/couriers/*.json") as $file) {
+    copy($file, "{$target}/couriers/".basename($file));
+}
+
+copy("{$source}/LICENSE", "{$target}/LICENSE");
+file_put_contents("{$target}/VERSION", "{$tag}\n{$ref['sha']}\n");
+
+echo "data/upstream is now {$tag} ({$ref['sha']}).\n";

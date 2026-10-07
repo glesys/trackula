@@ -1,0 +1,74 @@
+{
+  "name": "GS1",
+  "courier_code": ["postnord", "bring", "dhl-freight-se", "dsv-road", "posti"],
+  "tracking_numbers": [
+    {
+      "id": "sscc",
+      "name": "SSCC",
+      "description": "GS1 Serial Shipping Container Code, the package ID on Nordic parcel labels. The company prefix is usually the sender's, so the number does not identify the carrier.",
+      "regex": "(?:00)?(?<SerialNumber>(?<ExtensionDigit>[0-9])(?<GS1Number>[0-9]{16}))(?<CheckDigit>[0-9])",
+      "validation": {
+        "checksum": {
+          "name": "mod10",
+          "modulo": 10,
+          "evens_multiplier": 3,
+          "odds_multiplier": 1,
+          "reverse": true
+        }
+      },
+      "tracking_url": null,
+      "glossary": {
+        "ExtensionDigit": { "description": "Chosen by the issuer to extend the serial range." },
+        "GS1Number": { "description": "GS1 company prefix of the issuer followed by its serial reference." }
+      },
+      "test_numbers": {
+        "valid": [
+          "370438101268058536",
+          "376104250021234569",
+          "373999991234567899",
+          "373325383688859353",
+          "00373500489530470000",
+          "00373500454541020957",
+          "(00)373999991234567899"
+        ],
+        "invalid": [
+          "370733344455566677",
+          "370404600000010750",
+          "373999991234567898"
+        ]
+      }
+    },
+    {
+      "id": "gsin",
+      "name": "GSIN",
+      "description": "GS1 Global Shipment Identification Number, the shipment ID used by Bring and required by PostNord for groupage. Barcodes may carry Application Identifier 401 or 402 in front.",
+      "regex": "(?:40[12])?(?<SerialNumber>(?<GS1Number>[0-9]{16}))(?<CheckDigit>[0-9])",
+      "validation": {
+        "checksum": {
+          "name": "mod10",
+          "modulo": 10,
+          "evens_multiplier": 3,
+          "odds_multiplier": 1,
+          "reverse": true
+        }
+      },
+      "tracking_url": null,
+      "glossary": {
+        "GS1Number": { "description": "GS1 company prefix of the issuer followed by its serial reference." }
+      },
+      "test_numbers": {
+        "valid": [
+          "70438101268018539",
+          "70703202210020004",
+          "73400014000612026",
+          "70712190101741122",
+          "40170712190101741122"
+        ],
+        "invalid": [
+          "70438101263797410",
+          "70700611051925484"
+        ]
+      }
+    }
+  ]
+}

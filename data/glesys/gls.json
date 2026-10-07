@@ -1,0 +1,28 @@
+{
+  "name": "GLS",
+  "courier_code": "gls",
+  "tracking_numbers": [
+    {
+      "id": "gls_12",
+      "name": "GLS parcel number (12)",
+      "description": "Depot (2), product (2), running number (7) and a check digit. The check digit is GS1 mod 10 plus one, which keeps GLS barcodes apart from other barcodes on the same parcel.",
+      "regex": "(?<SerialNumber>(?<Depot>[0-9]{2})(?<Product>[0-9]{2})[0-9]{7})(?<CheckDigit>[0-9])",
+      "validation": {
+        "checksum": {
+          "name": "gls_mod10"
+        }
+      },
+      "tracking_url": null,
+      "test_numbers": {
+        "valid": [
+          "641012345674",
+          "123456789011",
+          "993990103198"
+        ],
+        "invalid": [
+          "641012345675"
+        ]
+      }
+    }
+  ]
+}

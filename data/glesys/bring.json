@@ -1,0 +1,24 @@
+{
+  "name": "Bring",
+  "courier_code": "bring",
+  "tracking_numbers": [
+    {
+      "id": "bring_label_free",
+      "name": "Bring label-free code",
+      "description": "Code handed to senders who drop off a parcel without a printed label: BRING and eight digits, usually written BRING-1234-5678.",
+      "regex": "BRING-?(?<SerialNumber>[0-9]{4}-?[0-9]{4})",
+      "tracking_url": null,
+      "test_numbers": {
+        "valid": [
+          "BRING-1234-5678",
+          "BRING12345678",
+          "bring-1234-5678"
+        ],
+        "invalid": [
+          "BRING-1234-567",
+          "BRANG-1234-5678"
+        ]
+      }
+    }
+  ]
+}
